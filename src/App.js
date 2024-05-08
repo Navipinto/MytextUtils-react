@@ -1,25 +1,70 @@
-import logo from './logo.svg';
 import './App.css';
+import Alert from './Components/Alert';
+import Navbar from './Components/Navbar';
+import About from './Components/About';
+import TextForm from './Components/TextForm';
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Route,Switch  } from 'react-router-dom';
+
 
 function App() {
+  const [mode, setMode] = useState('light');
+
+  const [alert, setAlert] = useState(null);
+
+  const showAlert=(message,type)=>{
+    setAlert({
+        message:message,
+        type:type
+    })
+
+    setTimeout(() => {
+      setAlert(null);
+    }, 1500);
+  }
+
+  const toggleModefun=()=>{
+    if(mode==='light')
+    {
+      setMode('dark');
+      document.body.style.backgroundColor = "#042743";
+      showAlert("dark mode has been enabled","success");
+      document.title="TextUtils - dark mode"
+    }
+    if (mode === "dark") {
+      setMode("light");
+      document.body.style.backgroundColor = "white";
+      showAlert("dark mode has been disabled","success");
+      document.title = "TextUtils - light mode";
+    }
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Router>
+        <Navbar
+          title="TextUtils"
+          aboutText="About TextUtils"
+          theme={mode}
+          toggleMode={toggleModefun}
+        />
+        <Alert alert={alert} />
+        <div className="container my-3">
+          <Switch>
+            <Route exact path="/about">
+              <About mode={mode} />
+            </Route>
+            <Route exact path="">
+              <TextForm
+                heading="Enter the text to analyze"
+                theme={mode}
+                showAlert={showAlert}
+              />
+            </Route>
+          </Switch>
+        </div>
+      </Router>
+    </>
   );
 }
 
-export default App;
+export default App;  
