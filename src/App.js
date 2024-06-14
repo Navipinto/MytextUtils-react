@@ -4,7 +4,7 @@ import Navbar from './Components/Navbar';
 import About from './Components/About';
 import TextForm from './Components/TextForm';
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Route,Switch  } from 'react-router-dom';
+import { BrowserRouter as Router, Route,Routes  } from 'react-router-dom';
 
 
 function App() {
@@ -49,18 +49,14 @@ function App() {
         />
         <Alert alert={alert} />
         <div className="container my-3">
-          <Switch>
-            <Route exact path="/about">
-              <About mode={mode} />
-            </Route>
-            <Route exact path="">
-              <TextForm
-                heading="Enter the text to analyze"
-                theme={mode}
-                showAlert={showAlert}
-              />
-            </Route>
-          </Switch>
+          <Routes>
+            <Route exact path="/" element={<TextForm
+              heading="Enter the text to analyze"
+              theme={mode}
+              showAlert={showAlert}
+            />}></Route>
+            <Route exact path="/about" element={<About mode={mode} />}></Route>
+          </Routes>
         </div>
       </Router>
     </>

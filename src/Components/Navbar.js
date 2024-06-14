@@ -31,7 +31,7 @@ export default function Navbar(props) {
               {/* { </a> }  */}
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="about">
+              <Link className="nav-link" to="/about">
                 {props.aboutText}
               </Link>
               {/* <a className="nav-link" href="about">
@@ -51,7 +51,7 @@ export default function Navbar(props) {
             </button>
           </form> */}
           <div
-            className={`form-check form-switch mx-3 text-${
+            className={`form-check form-switch text-${
               props.theme === "light" ? "dark" : "light"
             }`}
           >
